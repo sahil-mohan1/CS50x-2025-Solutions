@@ -1,1 +1,1 @@
-# CS50x-2025-Solutions
+This repository contains my solutions to Harvard's CS50 problem sets and final project.  These solutions are shared for educational purposes only. If you are currently taking CS50, you are expected to complete the assignments on your own.  Please do not copy code from this repository, as it violates CS50's academic honesty policy.
