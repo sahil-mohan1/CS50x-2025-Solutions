@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Account settings
+{% endblock %}
+
+{% block main %}
+    <form action="/account" method="post">
+        <fieldset>
+            <legend>Change password</legend>
+            <input type="hidden" name="form_type" value="password">
+                <div class="mb-3">
+                    <input autocomplete="off" class="form-control mx-auto w-auto" name="password" placeholder="New password" type="password">
+                </div>
+                <div class="mb-3">
+                    <input autocomplete="off" class="form-control mx-auto w-auto" name="cnf_password" placeholder="Confirm password" type="password">
+                </div>
+                <button id= "passwd-btn" class="btn btn-primary" type="submit">Confirm</button>
+        </fieldset>
+    </form>
+
+    <form action="/account" method="post">
+        <fieldset>
+            <legend>Deposit/Withdraw</legend>
+            <input type="hidden" name="form_type" value="transact">
+                <div class="mb-3">
+                    <select name="action">
+                            <option value="deposit">Deposit</option>
+                            <option value="withdraw">Withdraw</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <input autocomplete="off" class="form-control mx-auto w-auto" name="amount" placeholder="Amount($)" type="number">
+                </div>
+                <button class="btn btn-primary" type="submit">Confirm</button>
+        </fieldset>
+    </form>
+{% endblock %}

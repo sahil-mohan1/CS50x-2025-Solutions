@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}Leaderboard{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto mt-10 rounded-lg shadow-lg p-8 bg-slate-800/60 backdrop-blur-md border border-slate-700 opacity-0 translate-y-8 animate-fadeinup">
+    <h1 class="text-3xl font-bold text-center text-slate-100 mb-6">Leaderboard</h1>
+
+    <div class="flex justify-center gap-4 mb-8">
+        <a href="{{ url_for('leaderboard', time=15) }}" class="time-btn px-4 py-2 rounded-md transition {% if current_time == 15 %}bg-sky-600 text-white{% else %}bg-slate-700 text-slate-300 hover:bg-slate-600{% endif %}">15s</a>
+        <a href="{{ url_for('leaderboard', time=30) }}" class="time-btn px-4 py-2 rounded-md transition {% if current_time == 30 %}bg-sky-600 text-white{% else %}bg-slate-700 text-slate-300 hover:bg-slate-600{% endif %}">30s</a>
+        <a href="{{ url_for('leaderboard', time=45) }}" class="time-btn px-4 py-2 rounded-md transition {% if current_time == 45 %}bg-sky-600 text-white{% else %}bg-slate-700 text-slate-300 hover:bg-slate-600{% endif %}">45s</a>
+        <a href="{{ url_for('leaderboard', time=60) }}" class="time-btn px-4 py-2 rounded-md transition {% if current_time == 60 %}bg-sky-600 text-white{% else %}bg-slate-700 text-slate-300 hover:bg-slate-600{% endif %}">60s</a>
+    </div>
+
+    <div class="overflow-x-auto">
+        <table class="min-w-full text-left text-sm font-light text-slate-200">
+            <thead class="border-b border-slate-600 font-medium">
+                <tr>
+                    <th scope="col" class="px-6 py-4">Rank</th>
+                    <th scope="col" class="px-6 py-4">Username</th>
+                    <th scope="col" class="px-6 py-4">WPM</th>
+                    <th scope="col" class="px-6 py-4">Accuracy</th>
+                    <th scope="col" class="px-6 py-4">Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for score in scores %}
+                <tr class="border-b border-slate-700 hover:bg-slate-800/50 transition">
+                    <td class="whitespace-nowrap px-6 py-4 font-medium">{{ loop.index }}</td>
+                    <td class="whitespace-nowrap px-6 py-4">{{ score.username }}</td>
+                    <td class="whitespace-nowrap px-6 py-4 font-bold text-sky-400">{{ score.wpm }}</td>
+                    <td class="whitespace-nowrap px-6 py-4">{{ score.accuracy }}%</td>
+                    <td class="whitespace-nowrap px-6 py-4 text-slate-400">{{ score.timestamp.split(' ')[0] }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5" class="text-center py-8 text-slate-400">No scores yet for this category. Be the first!</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

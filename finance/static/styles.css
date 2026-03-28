@@ -1,0 +1,109 @@
+/* Size for brand */
+nav .navbar-brand
+{
+    font-size: xx-large;
+}
+
+/* Colors for brand */
+nav .navbar-brand .blue
+{
+    color: #537fbe;
+}
+nav .navbar-brand .red
+{
+    color: #ea433b;
+}
+nav .navbar-brand .yellow
+{
+    color: #f5b82e;
+}
+nav .navbar-brand .green
+{
+    color: #2e944b;
+}
+
+/* Enhanced fieldset styling */
+fieldset {
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    padding: 25px 30px;
+    margin: 25px 0;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+fieldset:hover {
+    border-color: #537fbe;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+}
+
+fieldset:focus-within {
+    border-color: #537fbe;
+    box-shadow: 0 0 0 3px rgba(83, 127, 190, 0.1), 0 8px 15px rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+
+legend {
+    background: linear-gradient(135deg, #495670 0%, #000000 100%);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 1.1em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    border: none;
+    position: relative;
+    margin-left: 10px;
+}
+
+legend::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, #537fbe 0%, #2e944b 100%);
+    border-radius: 22px;
+    z-index: -1;
+    opacity: 0.3;
+}
+
+/* Alternative legend styles for different contexts */
+fieldset.primary legend {
+    background: linear-gradient(135deg, #537fbe 0%, #4a90e2 100%);
+}
+
+fieldset.success legend {
+    background: linear-gradient(135deg, #2e944b 0%, #28a745 100%);
+}
+
+fieldset.warning legend {
+    background: linear-gradient(135deg, #f5b82e 0%, #ffc107 100%);
+}
+
+fieldset.danger legend {
+    background: linear-gradient(135deg, #ea433b 0%, #dc3545 100%);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    fieldset {
+        padding: 20px 15px;
+        margin: 15px 0;
+        border-radius: 8px;
+    }
+
+    legend {
+        font-size: 1em;
+        padding: 6px 15px;
+        border-radius: 15px;
+    }
+}
+
+#passwd-btn{
+    background-color:Red;
+}

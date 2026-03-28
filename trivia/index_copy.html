@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+        <title>Trivia!</title>
+        <script>
+            function validate1(button, answer){
+                if (answer === "Venice"){
+                    button.style.backgroundColor="Green";
+                }
+                else {
+                    button.style.backgroundColor="Red";
+                }
+                const buttons = button.parentElement.querySelectorAll("button");
+                buttons.forEach(b => b.disabled = true);
+            }
+
+            function validate2(){
+                textarea = document.getElementById("fr1")
+                answer = textarea.value;
+                feedback = document.getElementById("fr1-feedback")
+                if (answer != "Sydney"){
+                    textarea.style.backgroundColor = "Red";
+                    feedback.textContent = "Incorrect"
+                }
+                else {
+                    textarea.style.backgroundColor = "Green";
+                    feedback.textContent = "Correct!"
+                }
+                textarea.disabled = true;
+            }
+
+        </script>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Trivia!</h1>
+        </div>
+
+        <div class="container">
+            <div class="section">
+                <h2>Part 1: Multiple Choice </h2>
+                <hr>
+                <h3>What Italian city is famous for its system of canals?</h3>
+                <button onclick="validate1(this, 'Rome')">Rome</button>
+                <button onclick="validate1(this, 'Naples')">Naples</button>
+                <button onclick="validate1(this, 'Venice')">Venice</button>
+            </div>
+
+            <div class="section">
+                <h2>Part 2: Free Response</h2>
+                <hr>
+                <h3>What city hosted the 2002 Olympic Games?</h3>
+                <input id="fr1">
+                <button onclick="validate2()">Check Answer</button>
+                <div id="fr1-feedback"></div>
+            </div>
+        </div>
+    </body>
+</html>

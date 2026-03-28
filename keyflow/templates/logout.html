@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %}Logged out{% endblock %}
+
+{% block content %}
+<div class="min-h-[60vh] flex items-center justify-center">
+  <div class="max-w-md w-full text-center rounded-lg p-8 bg-slate-800/60 backdrop-blur-md border border-slate-700 shadow-lg opacity-0 translate-y-8 animate-fadeinup">
+    <div class="text-sky-400 mb-4 text-4xl">✅</div>
+    <h2 class="text-2xl font-semibold text-slate-100 mb-2">You've been logged out.</h2>
+    <div class="flex gap-3 justify-center">
+      <a href="/" class="px-4 py-2 bg-slate-700 text-slate-100 rounded-md hover:bg-slate-600 transition">Home</a>
+      <a href="/login" class="px-4 py-2 bg-sky-600 text-white rounded-md hover:bg-sky-700 transition">Sign in</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

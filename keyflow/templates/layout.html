@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-900">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Keyflow{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              slate: {
+                100: 'var(--slate-100)',
+                200: 'var(--slate-200)',
+                300: 'var(--slate-300)',
+                400: 'var(--slate-400)',
+                600: 'var(--slate-600)',
+                700: 'var(--slate-700)',
+                800: 'var(--slate-800)',
+                900: 'var(--slate-900)'
+              },
+              sky: {
+                400: 'var(--sky-400)',
+                500: 'var(--sky-500)',
+                600: 'var(--sky-600)',
+                700: 'var(--sky-700)'
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            /* Default Slate Theme */
+            --slate-100: #f1f5f9;
+            --slate-200: #e2e8f0;
+            --slate-300: #cbd5e1;
+            --slate-400: #94a3b8;
+            --slate-600: #475569;
+            --slate-700: #334155;
+            --slate-800: #1e293b;
+            --slate-900: #0f172a;
+            
+            --sky-400: #38bdf8;
+            --sky-500: #0ea5e9;
+            --sky-600: #0284c7;
+            --sky-700: #0369a1;
+
+            --sky-400-alpha: rgba(56, 189, 248, 0.6);
+            --sky-500-alpha: rgba(56, 189, 248, 0.1);
+        }
+
+        :root[data-theme="cyberpunk"] {
+            /* Cyberpunk Theme */
+            --slate-100: #fdf2f8; 
+            --slate-200: #fce7f3;
+            --slate-300: #fbcfe8;
+            --slate-400: #f472b6; 
+            --slate-600: #831843; 
+            --slate-700: #4c1d95; 
+            --slate-800: #1e1b4b; 
+            --slate-900: #0a0a0a; 
+            
+            --sky-400: #22d3ee; 
+            --sky-500: #06b6d4;
+            --sky-600: #0891b2;
+            --sky-700: #155e75;
+
+            --sky-400-alpha: rgba(34, 211, 238, 0.6);
+            --sky-500-alpha: rgba(34, 211, 238, 0.1);
+        }
+
+        :root[data-theme="forest"] {
+            /* Forest Theme */
+            --slate-100: #ecfccb;
+            --slate-200: #d9f99d;
+            --slate-300: #bef264;
+            --slate-400: #a3e635; 
+            --slate-600: #4d7c0f;
+            --slate-700: #166534; 
+            --slate-800: #14532d; 
+            --slate-900: #022c22; 
+            
+            --sky-400: #fbbf24; 
+            --sky-500: #f59e0b;
+            --sky-600: #d97706;
+            --sky-700: #b45309;
+
+            --sky-400-alpha: rgba(251, 191, 36, 0.6);
+            --sky-500-alpha: rgba(251, 191, 36, 0.1);
+        }
+        /* Animation for pop-up effect*/
+        @keyframes fadeinup {
+          0% { opacity: 0; transform: translateY(2rem); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeinup {
+          animation: fadeinup 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        /* Styles for correct and incorrect characters */
+        #text-to-type-display .correct {
+            color: #34d399; /* Tailwind's green-400 */
+        }
+        #text-to-type-display .incorrect {
+            color: #f87171; /* Tailwind's red-400 */
+            text-decoration: underline;
+            text-decoration-color: #f87171;
+        }
+
+        /* Style for the active time selection button */
+        .time-btn.active {
+            background-color: var(--sky-500); 
+            color: #ffffff;
+        }
+
+        /* Styles for words and characters */
+        #text-to-type-display .word {
+            display: inline-block;
+            margin-right: 0.4em; /* Standard word spacing */
+            padding: 0.1em;
+            border-radius: 0.2rem;
+            transition: background-color 0.2s, text-shadow 0.2s;
+        }
+        #text-to-type-display .word.active {
+            background-color: var(--sky-500-alpha);
+        }
+        #text-to-type-display .word.error {
+            text-decoration: underline;
+            text-decoration-color: #f87171;
+            text-decoration-thickness: 2px;
+        }
+        
+        #text-to-type-display span.char {
+            border-left: 2px solid transparent;
+            margin-left: -2px; /* Offset the border to prevent layout jitter */
+            transition: color 0.1s;
+        }
+
+        /* Blinking cursor styles */
+        #text-to-type-display span.char.cursor {
+            border-left: 2px solid var(--sky-400); 
+            box-shadow: -2px 0 5px var(--sky-400-alpha);
+            animation: blink 1s step-end infinite;
+        }
+        
+        /* Cursor when space is expected (end of word) */
+        #text-to-type-display span.word.cursor-end {
+             border-right: 2px solid var(--sky-400);
+             box-shadow: 2px 0 5px var(--sky-400-alpha);
+             animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent; box-shadow: none; }
+        }
+
+        /* Error Shake Animation */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-4px); }
+            40% { transform: translateX(4px); }
+            60% { transform: translateX(-4px); }
+            80% { transform: translateX(4px); }
+        }
+        .animate-shake {
+            animation: shake 0.3s ease-in-out;
+        }
+    </style>
+
+    {% block head %}{% endblock %}
+    <!-- Prevent FOUC when applying theme -->
+    <script>
+        const storedTheme = localStorage.getItem('keyflow-theme');
+        if (storedTheme && storedTheme !== 'default') {
+            document.documentElement.setAttribute('data-theme', storedTheme);
+        }
+    </script>
+</head>
+<body class="h-full text-slate-200">
+    <nav class="bg-slate-800 shadow-lg">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between">
+                <div class="flex items-center">
+                    <a href="/" class="text-xl font-bold text-sky-400">KeyFlow</a>
+                    <!-- Theme Selector -->
+                    <select id="theme-selector" class="ml-4 bg-slate-700 text-slate-200 text-sm rounded border border-slate-600 focus:outline-none focus:border-sky-500 px-2 py-1 cursor-pointer">
+                        <option value="default">Slate (Default)</option>
+                        <option value="cyberpunk">Cyberpunk</option>
+                        <option value="forest">Forest</option>
+                    </select>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        {% if session.get('user_id') %}
+                            <!-- Logged-in View -->
+                            <a href="/leaderboard" class="text-slate-300 hover:bg-slate-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium transition-colors">Leaderboard</a>
+                            <a href="/logout" class="text-slate-300 hover:bg-slate-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium transition-colors">Logout</a>
+                        {% else %}
+                            <!-- Guest View -->
+                            <a href="/" class="text-slate-300 hover:bg-slate-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium transition-colors">Typing Test</a>
+                            <a href="/leaderboard" class="text-slate-300 hover:bg-slate-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium transition-colors">Leaderboard</a>
+                            <a href="/login" class="text-slate-300 hover:bg-slate-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium transition-colors">Login</a>
+                            <a href="/register" class="bg-sky-600 text-white hover:bg-sky-700 rounded-md px-3 py-2 text-sm font-medium transition-colors">Register</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="py-10">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

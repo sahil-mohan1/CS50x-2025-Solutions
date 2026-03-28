@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+        <title>Trivia!</title>
+        <script>
+            function validate1(button, choice, answer){
+                if (choice === answer){
+                    button.style.backgroundColor="Green";
+                    button.parentElement.querySelector("div").textContent = "Correct!"
+                }
+                else {
+                    button.style.backgroundColor="Red";
+                    button.parentElement.querySelector("div").textContent = "Incorrect"
+                }
+                const buttons = button.parentElement.querySelectorAll("button");
+                buttons.forEach(b => b.disabled = true);
+            }
+
+            function validate2(tId, answer){
+                let input = document.getElementById(tId)
+                let choice = input.value;
+                let feedback = document.getElementById(tId + "-feedback")
+                if (choice !== answer){
+                    input.style.backgroundColor = "Red";
+                    feedback.textContent = "Incorrect"
+                }
+                else {
+                    input.style.backgroundColor = "Green";
+                    feedback.textContent = "Correct!"
+                }
+                input.disabled = true;
+            }
+
+        </script>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Trivia!</h1>
+        </div>
+
+        <div class="container">
+            <div class="section">
+                <h2>Part 1: Multiple Choice </h2>
+                <hr>
+                <div>
+                    <h3>What Italian city is famous for its system of canals?</h3>
+                    <button onclick="validate1(this, 'Rome', 'Venice')">Rome</button>
+                    <button onclick="validate1(this, 'Naples', 'Venice')">Naples</button>
+                    <button onclick="validate1(this, 'Venice', 'Venice')">Venice</button>
+                    <div id="mcq1-feedback"></div>
+                </div>
+
+                <div>
+                    <h3> Which of the following was considered one of the Seven Ancient Wonders?</h3>
+                    <button onclick="validate1(this, 'Colosseum', 'Colossus of Rhodes')">Colosseum</button>
+                    <button onclick="validate1(this, 'Great Wall of China', 'Colossus of Rhodes')">Great Wall of China</button>
+                    <button onclick="validate1(this, 'Colossus of Rhodes', 'Colossus of Rhodes')">Colossus of Rhodes</button>
+                    <div id="mcq2-feedback"></div>
+                </div>
+
+                <div>
+                    <h3>How long did dinosaurs live on the earth?</h3>
+                    <button onclick="validate1(this, '100-150 million years', '150-200 million years')">100-150 million years</button>
+                    <button onclick="validate1(this, '150-200 million years', '150-200 million years')">150-200 million years</button>
+                    <button onclick="validate1(this, '200+ million years', '150-200 million years')">200+ million years</button>
+                    <div id="mcq3-feedback"></div>
+                </div>
+            </div>
+
+
+            <div class="section">
+                <h2>Part 2: Free Response</h2>
+                <hr>
+                <div>
+                    <h3>Which planet is closest to the sun?</h3>
+                    <input type = "text" id="fr1">
+                    <button onclick="validate2('fr1', 'Mercury')">Check Answer</button>
+                    <div id="fr1-feedback"></div>
+                </div>
+
+                <div>
+                    <h3>What year was the United Nations established?</h3>
+                    <input type = "text" id="fr2">
+                    <button onclick="validate2('fr2', '1945')">Check Answer</button>
+                    <div id="fr2-feedback"></div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
